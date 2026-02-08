@@ -1,0 +1,557 @@
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #000;
+  color: #fff;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: #000;
+  border-bottom: 1px solid #222;
+}
+
+.logo {
+  color: red;
+  font-weight: bold;
+  font-size: 22px;
+  letter-spacing: 2px;
+}
+
+.navbar nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.navbar nav a:hover {
+  color: red;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  position: relative;
+  height: 90vh;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)),
+    url("./images/hero/lion.jpg");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+}
+
+.hero-content h1 {
+  font-size: 72px;
+  line-height: 1;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.hero-content span {
+  color: red;
+}
+
+.hero-content p {
+  max-width: 500px;
+  margin: 20px 0;
+  color: #ccc;
+}
+
+.hero-content button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hero-content button:hover {
+  transform: scale(1.05);
+  background: darkred;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+.products {
+  padding: 60px;
+}
+
+.products h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+}
+
+/* GRID */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+/* PRODUCT CARD */
+.product-card {
+  background: #0d0d0d;
+  border: 1px solid #222;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+}
+
+/* IMAGE */
+.product-image img {
+  width: 100%;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.08);
+}
+
+/* INFO */
+.product-info {
+  padding: 15px;
+}
+
+.product-info h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.price {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.product-info button {
+  width: 100%;
+  background: red;
+  border: none;
+  padding: 12px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.product-info button:hover {
+  background: darkred;
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #000;
+  border-top: 1px solid #222;
+}
+
+/* =========================
+   MOBILE RESPONSIVENESS
+========================= */
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-content h1 {
+    font-size: 48px;
+  }
+
+  .navbar {
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar nav {
+    margin-top: 10px;
+  }
+
+  .navbar nav a {
+    margin-left: 0;
+    margin-right: 15px;
+    font-size: 13px;
+  }
+
+  .hero {
+    height: auto;
+    padding: 80px 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 38px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .products {
+    padding: 40px 20px;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   CART PAGE
+========================= */
+
+#cart-items {
+  max-width: 800px;
+  margin: 0 auto 30px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d0d0d;
+  border: 1px solid #222;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.cart-item h4 {
+  font-size: 16px;
+}
+
+.cart-item p {
+  margin: 0 15px;
+  color: #ccc;
+}
+
+.cart-item button {
+  background: red;
+  border: none;
+  padding: 8px 14px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cart-item button:hover {
+  background: darkred;
+}
+
+#cart-total {
+  text-align: center;
+  margin-bottom: 20px;
+  color: red;
+}
+
+#checkout-btn {
+  display: block;
+  margin: 0 auto;
+  background: red;
+  border: none;
+  padding: 15px 40px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#checkout-btn:hover {
+  background: darkred;
+}
+
+/* =========================
+   CHECKOUT PAGE
+========================= */
+
+.checkout-grid {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.checkout-box {
+  background: #0d0d0d;
+  border: 1px solid #222;
+  padding: 25px;
+}
+
+.checkout-box h3 {
+  margin-bottom: 20px;
+}
+
+.checkout-box input,
+.checkout-box textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background: #000;
+  border: 1px solid #333;
+  color: white;
+}
+
+.checkout-box textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+#checkout-items p {
+  margin-bottom: 8px;
+}
+
+#checkout-total {
+  color: red;
+  margin: 15px 0;
+}
+
+#payfast-btn {
+  width: 100%;
+  background: red;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+#payfast-btn:hover {
+  background: darkred;
+}
+
+@media (max-width: 700px) {
+  .checkout-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   PRODUCT DETAIL PAGE
+========================= */
+
+.product-detail {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.product-detail-image img {
+  width: 100%;
+  border: 1px solid #222;
+}
+
+.product-detail-info h2 {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.product-detail-info p {
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+.product-detail-info .price {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.product-detail-info button {
+  background: red;
+  border: none;
+  padding: 15px 40px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.product-detail-info button:hover {
+  background: darkred;
+}
+
+@media (max-width: 700px) {
+  .product-detail {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   CONTACT FORM
+========================= */
+
+.contact-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background: #0d0d0d;
+  border: 1px solid #222;
+  padding: 30px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  background: #000;
+  border: 1px solid #333;
+  color: white;
+  font-size: 14px;
+}
+
+.contact-form textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.contact-form button {
+  width: 100%;
+  background: red;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.contact-form button:hover {
+  background: darkred;
+}
+
+.form-note {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #888;
+  text-align: center;
+}
+
+/* =========================
+   ADMIN DASHBOARD
+========================= */
+
+.admin-box {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  background: #0d0d0d;
+  border: 1px solid #222;
+  padding: 25px;
+}
+
+.admin-box h3 {
+  margin-bottom: 20px;
+}
+
+.admin-box input,
+.admin-box textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  background: #000;
+  border: 1px solid #333;
+  color: white;
+}
+
+.admin-box textarea {
+  min-height: 80px;
+}
+
+.admin-box button {
+  background: red;
+  border: none;
+  padding: 12px 25px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.admin-product {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #222;
+  padding: 10px 0;
+}
+
+.admin-product button {
+  background: darkred;
+  border: none;
+  padding: 6px 10px;
+  color: white;
+  cursor: pointer;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-box {
+  max-width: 400px;
+  margin: 0 auto;
+  background: #0d0d0d;
+  border: 1px solid #222;
+  padding: 30px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  background: #000;
+  border: 1px solid #333;
+  color: white;
+}
+
+.login-box button {
+  width: 100%;
+  background: red;
+  border: none;
+  padding: 15px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-box button:hover {
+  background: darkred;
+}

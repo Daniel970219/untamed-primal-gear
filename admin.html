@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | Untamed Primal Gear</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+  if (localStorage.getItem("isAdmin") !== "true") {
+    window.location.href = "login.html";
+  }
+</script>
+
+  <!-- HEADER -->
+  <header class="navbar">
+    <div class="logo">ADMIN — UNTAMED PRIMAL GEAR</div>
+    <nav>
+      <a href="index.html">View Store</a>
+      <a href="admin.html">Dashboard</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+  </header>
+
+  <!-- ADMIN DASHBOARD -->
+  <section class="products">
+    <h2>ADMIN DASHBOARD</h2>
+
+    <!-- ADD PRODUCT -->
+    <div class="admin-box">
+      <h3>Add New Product</h3>
+
+      <input type="text" id="product-name" placeholder="Product Name">
+      <input type="number" id="product-price" placeholder="Price (R)">
+      <input type="text" id="product-image" placeholder="Image path (images/products/...)">
+      <textarea id="product-description" placeholder="Product description"></textarea>
+
+      <button onclick="addProduct()">Add Product</button>
+    </div>
+
+    <!-- PRODUCT LIST -->
+    <div class="admin-box">
+      <h3>Products</h3>
+      <div id="admin-products"></div>
+    </div>
+
+    <!-- ORDERS -->
+    <div class="admin-box">
+      <h3>Orders</h3>
+      <div id="admin-orders"></div>
+    </div>
+
+}
+
+
+  </section>
+
+  <script src="admin.js"></script>
+</body>
+</html>

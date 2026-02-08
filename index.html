@@ -1,135 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Untamed Primal Gear</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- ================= HEADER ================= -->
-  <header class="navbar">
-    <div class="logo">UNTAMED PRIMAL GEAR</div>
+<!-- ================= HEADER ================= -->
+<header class="navbar">
+  <div class="logo">UNTAMED PRIMAL GEAR</div>
 
-    <nav>
-      <a href="shop.html">Shop</a>
-      <a href="collections.html">Collections</a>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact</a>
+  <nav>
+    <a href="shop.html">Shop</a>
+    <a href="cart.html">Cart</a>
+    <a href="login.html">Login</a>
+  </nav>
+</header>
 
-      <a href="cart.html" class="cart">
-        🛒 <span id="cart-count">0</span>
-      </a>
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>UNTAMED<br><span>PRIMAL GEAR</span></h1>
 
-      <!-- USER LOGIN / LOGOUT -->
-      <a href="login.html" id="user-link">Login</a>
-    </nav>
-  </header>
+    <p>
+      Premium fitness apparel, supplements,
+      and gym gear built for the untamed.
+    </p>
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <div class="hero-content">
-      <h1>UNTAMED<br><span>PRIMAL GEAR</span></h1>
+    <a href="shop.html">
+      <button>SHOP NOW</button>
+    </a>
+  </div>
+</section>
 
-      <p>
-        Unleash your primal strength with premium fitness apparel,
-        supplements, and gym gear built for the untamed.
-      </p>
+<!-- ================= BEST SELLERS ================= -->
+<section class="products">
 
-      <a href="shop.html">
-        <button>SHOP NOW</button>
-      </a>
-    </div>
-  </section>
+  <h2>Best Sellers</h2>
 
-  <!-- ================= PRODUCTS ================= -->
-  <section class="products">
-    <h2>BEST SELLERS</h2>
+  <!-- JS renders featured products here -->
+  <div id="best-seller-grid" class="product-grid"></div>
 
-    <div class="product-grid">
+</section>
 
-      <a href="product.html?id=1" style="text-decoration:none;color:inherit;">
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/products/product1.jpg">
-          </div>
-          <div class="product-info">
-            <h3>Untamed Lion Tee</h3>
-            <p class="price">R499</p>
-            <button>Add to Cart</button>
-          </div>
-        </div>
-      </a>
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>© 2026 Untamed Primal Gear</p>
+</footer>
 
-      <a href="product.html?id=2" style="text-decoration:none;color:inherit;">
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/products/product2.jpg">
-          </div>
-          <div class="product-info">
-            <h3>Primal Hoodie</h3>
-            <p class="price">R899</p>
-            <button>Add to Cart</button>
-          </div>
-        </div>
-      </a>
-
-      <a href="product.html?id=3" style="text-decoration:none;color:inherit;">
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/products/product3.jpg">
-          </div>
-          <div class="product-info">
-            <h3>Training Gloves</h3>
-            <p class="price">R349</p>
-            <button>Add to Cart</button>
-          </div>
-        </div>
-      </a>
-
-      <a href="product.html?id=4" style="text-decoration:none;color:inherit;">
-        <div class="product-card">
-          <div class="product-image">
-            <img src="images/products/product4.jpg">
-          </div>
-          <div class="product-info">
-            <h3>Pre-Workout Fuel</h3>
-            <p class="price">R599</p>
-            <button>Add to Cart</button>
-          </div>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ================= FOOTER ================= -->
-  <footer>
-    <p>© 2026 Untamed Primal Gear. All Rights Reserved.</p>
-  </footer>
-
-  <!-- ================= SCRIPTS ================= -->
-
-  <!-- Cart system -->
-  <script src="script.js"></script>
-
-  <!-- Login status system -->
-  <script>
-    const user = JSON.parse(localStorage.getItem("currentUser"));
-    const userLink = document.getElementById("user-link");
-
-    if (user) {
-      userLink.textContent = "Logout";
-      userLink.href = "#";
-
-      userLink.onclick = () => {
-        localStorage.removeItem("currentUser");
-        location.reload();
-      };
-    }
-  </script>
+<script src="script.js"></script>
 
 </body>
 </html>

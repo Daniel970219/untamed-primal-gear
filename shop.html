@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Shop</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Shop | Untamed Primal Gear</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header class="navbar">
-<div class="logo">SHOP</div>
-<nav>
-<a href="index.html">Home</a>
-<a href="cart.html">Cart</a>
-</nav>
+  <div class="logo">UNTAMED PRIMAL GEAR</div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="cart.html">Cart</a>
+    <a href="login.html">Login</a>
+  </nav>
 </header>
 
 <section class="products">
 
-<h2>Shop Products</h2>
+  <h2>Shop Products</h2>
 
-<select id="category-filter">
-<option value="all">All Categories</option>
-<option value="Apparel">Apparel</option>
-<option value="Supplements">Supplements</option>
-<option value="Gear">Gear</option>
-</select>
+  <!-- CATEGORY FILTER (JS CONTROLLED) -->
+  <div style="text-align:center; margin-bottom:30px;">
+    <select id="category-filter"></select>
+  </div>
 
-<div class="product-grid" id="shop-product-grid"></div>
+  <!-- PRODUCT GRID -->
+  <div class="product-grid" id="shop-product-grid"></div>
 
 </section>
 

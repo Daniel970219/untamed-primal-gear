@@ -1,51 +1,44 @@
-// ===============================
-// CART SYSTEM (ADMIN PRODUCTS)
-// ===============================
+/* ===============================
+   HOMEPAGE — BEST SELLERS
+=============================== */
 
-// Load cart
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const grid = document.getElementById("best-seller-grid");
 
-// Update cart count
-updateCartCount();
-
-// Add to cart buttons (on homepage)
-document.querySelectorAll(".product-card button").forEach((button, index) => {
-  button.addEventListener("click", (e) => {
-    e.preventDefault(); // prevent link navigation
-    addToCartFromHome(index);
-  });
-});
-
-// Load admin products
 const products = JSON.parse(localStorage.getItem("products")) || [];
 
-// Add product to cart (from home page)
-function addToCartFromHome(index) {
-  const product = products[index];
-  if (!product) return;
+function renderBestSellers() {
+  if (!grid) return;
 
-  const existing = cart.find(item => item.id === product.id);
+  grid.innerHTML = "";
 
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-      quantity: 1
-    });
+  const featured = products.filter(p => p.featured);
+
+  if (featured.length === 0) {
+    grid.innerHTML = "<p>No best sellers yet.</p>";
+    return;
   }
 
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
-  alert(product.name + " added to cart");
+  featured.forEach(product => {
+    const card = document.createElement("a");
+
+    card.href = `product.html?id=${product.id}`;
+    card.style.textDecoration = "none";
+    card.style.color = "inherit";
+
+    card.innerHTML = `
+      <div class="product-card">
+        <div class="product-image">
+          <img src="${product.image}">
+        </div>
+        <div class="product-info">
+          <h3>${product.name}</h3>
+          <p class="price">R${product.price}</p>
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
 }
 
-// Update cart count
-function updateCartCount() {
-  const count = cart.reduce((total, item) => total + item.quantity, 0);
-  const cartCount = document.getElementById("cart-count");
-  if (cartCount) cartCount.textContent = count;
-}
+renderBestSellers();

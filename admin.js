@@ -1,17 +1,19 @@
-// ===============================
-// ADMIN DASHBOARD SYSTEM
-// Products + Categories + Orders
-// ===============================
+/* ===============================
+   ADMIN DASHBOARD SYSTEM
+=============================== */
+
+window.products = JSON.parse(localStorage.getItem("products")) || [];
+window.categories = JSON.parse(localStorage.getItem("categories")) || [];
+const orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+const productList = document.getElementById("admin-products");
+const categoryList = document.getElementById("admin-categories");
+const ordersDiv = document.getElementById("admin-orders");
 
 /* ===============================
    PRODUCTS
 =============================== */
 
-window.products = JSON.parse(localStorage.getItem("products")) || [];
-
-const productList = document.getElementById("admin-products");
-
-// Render products
 window.renderProducts = function () {
   if (!productList) return;
 
@@ -30,8 +32,10 @@ window.renderProducts = function () {
       <div>
         <strong>${product.name}</strong><br>
         Category: ${product.category || "None"}<br>
-        R${product.price}
+        R${product.price}<br>
+        ${product.featured ? "⭐ Best Seller" : ""}
       </div>
+
       <button onclick="deleteProduct(${index})">Delete</button>
     `;
 
@@ -39,16 +43,16 @@ window.renderProducts = function () {
   });
 };
 
-// Add product
 window.addProduct = function () {
   const name = document.getElementById("product-name").value.trim();
   const price = document.getElementById("product-price").value;
   const image = document.getElementById("product-image").value.trim();
   const description = document.getElementById("product-description").value.trim();
-  const category = document.getElementById("product-category")?.value || "";
+  const category = document.getElementById("product-category").value;
+  const featured = document.getElementById("product-featured").checked;
 
   if (!name || !price || !image) {
-    alert("Fill all required fields");
+    alert("Fill required fields");
     return;
   }
 
@@ -58,7 +62,8 @@ window.addProduct = function () {
     price: Number(price),
     image,
     description,
-    category
+    category,
+    featured
   });
 
   localStorage.setItem("products", JSON.stringify(products));
@@ -67,11 +72,11 @@ window.addProduct = function () {
   document.getElementById("product-price").value = "";
   document.getElementById("product-image").value = "";
   document.getElementById("product-description").value = "";
+  document.getElementById("product-featured").checked = false;
 
   renderProducts();
 };
 
-// Delete product
 window.deleteProduct = function (index) {
   products.splice(index, 1);
   localStorage.setItem("products", JSON.stringify(products));
@@ -79,24 +84,13 @@ window.deleteProduct = function (index) {
 };
 
 /* ===============================
-   CATEGORY MANAGEMENT
+   CATEGORIES
 =============================== */
 
-window.categories = JSON.parse(localStorage.getItem("categories")) || [];
-
-const categoryList = document.getElementById("admin-categories");
-
-// Render categories
 window.renderCategories = function () {
   if (!categoryList) return;
 
   categoryList.innerHTML = "";
-
-  if (categories.length === 0) {
-    categoryList.innerHTML = "<p>No categories yet.</p>";
-    updateCategoryDropdown();
-    return;
-  }
 
   categories.forEach((cat, index) => {
     const div = document.createElement("div");
@@ -110,25 +104,14 @@ window.renderCategories = function () {
     categoryList.appendChild(div);
   });
 
-  updateCategoryDropdown();
+  updateDropdown();
 };
 
-// Add category
 window.addCategory = function () {
   const input = document.getElementById("new-category");
-  if (!input) return;
-
   const value = input.value.trim();
 
-  if (!value) {
-    alert("Enter category name");
-    return;
-  }
-
-  if (categories.includes(value)) {
-    alert("Category already exists");
-    return;
-  }
+  if (!value || categories.includes(value)) return;
 
   categories.push(value);
   localStorage.setItem("categories", JSON.stringify(categories));
@@ -137,44 +120,34 @@ window.addCategory = function () {
   renderCategories();
 };
 
-// Delete category
 window.deleteCategory = function (index) {
   categories.splice(index, 1);
   localStorage.setItem("categories", JSON.stringify(categories));
   renderCategories();
 };
 
-// Update dropdown
-function updateCategoryDropdown() {
+function updateDropdown() {
   const dropdown = document.getElementById("product-category");
   if (!dropdown) return;
 
   dropdown.innerHTML = "";
 
   categories.forEach(cat => {
-    const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat;
-    dropdown.appendChild(option);
+    const opt = document.createElement("option");
+    opt.value = cat;
+    opt.textContent = cat;
+    dropdown.appendChild(opt);
   });
 }
 
 /* ===============================
-   ORDERS PANEL
+   ORDERS
 =============================== */
-
-const orders = JSON.parse(localStorage.getItem("orders")) || [];
-const ordersDiv = document.getElementById("admin-orders");
 
 window.renderOrders = function () {
   if (!ordersDiv) return;
 
   ordersDiv.innerHTML = "";
-
-  if (orders.length === 0) {
-    ordersDiv.innerHTML = "<p>No orders yet.</p>";
-    return;
-  }
 
   orders.forEach(order => {
     const div = document.createElement("div");
@@ -184,10 +157,7 @@ window.renderOrders = function () {
       <div>
         <strong>Order #${order.id}</strong><br>
         ${order.customer.name}<br>
-        ${order.customer.email}<br>
-        Total: R${order.total}<br>
-        Status: ${order.status}<br>
-        ${order.date}
+        Total: R${order.total}
       </div>
     `;
 
@@ -205,7 +175,7 @@ window.logout = function () {
 };
 
 /* ===============================
-   INIT RENDER
+   INIT
 =============================== */
 
 renderProducts();

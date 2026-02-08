@@ -1,62 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard | Untamed Primal Gear</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <script>
-  if (localStorage.getItem("isAdmin") !== "true") {
-    window.location.href = "admin-login.html";
-  }
+if (localStorage.getItem("isAdmin") !== "true") {
+  window.location.href = "admin-login.html";
+}
 </script>
 
-  <!-- HEADER -->
-  <header class="navbar">
-    <div class="logo">ADMIN — UNTAMED PRIMAL GEAR</div>
-    <nav>
-      <a href="index.html">View Store</a>
-      <a href="admin.html">Dashboard</a>
-      <a href="#" onclick="logout()">Logout</a>
-    </nav>
-  </header>
+<header class="navbar">
+  <div class="logo">ADMIN DASHBOARD</div>
+  <nav>
+    <a href="index.html">Store</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </nav>
+</header>
 
-  <!-- ADMIN DASHBOARD -->
-  <section class="products">
-    <h2>ADMIN DASHBOARD</h2>
+<section class="products">
 
-    <!-- ADD PRODUCT -->
-    <div class="admin-box">
-      <h3>Add New Product</h3>
+<h2>Add Product</h2>
 
-      <input type="text" id="product-name" placeholder="Product Name">
-      <input type="number" id="product-price" placeholder="Price (R)">
-      <input type="text" id="product-image" placeholder="Image path (images/products/...)">
-      <textarea id="product-description" placeholder="Product description"></textarea>
+<div class="admin-box">
 
-      <button onclick="addProduct()">Add Product</button>
-    </div>
+<input id="product-name" placeholder="Product Name">
+<input id="product-price" type="number" placeholder="Price">
+<input id="product-image" placeholder="Image path">
+<textarea id="product-description" placeholder="Description"></textarea>
 
-    <!-- PRODUCT LIST -->
-    <div class="admin-box">
-      <h3>Products</h3>
-      <div id="admin-products"></div>
-    </div>
+<select id="product-category">
+<option value="">Select Category</option>
+<option value="Apparel">Apparel</option>
+<option value="Supplements">Supplements</option>
+<option value="Gear">Gear</option>
+</select>
 
-    <!-- ORDERS -->
-    <div class="admin-box">
-      <h3>Orders</h3>
-      <div id="admin-orders"></div>
-    </div>
+<button onclick="addProduct()">Add Product</button>
 
-}
+</div>
 
+<h2>Products</h2>
+<div id="admin-products"></div>
 
-  </section>
+</section>
 
-  <script src="admin.js"></script>
+<script src="admin.js"></script>
+
 </body>
 </html>

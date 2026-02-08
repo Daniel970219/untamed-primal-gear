@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<section class="products">
+<h2>ADMIN LOGIN</h2>
+
+<div class="login-box">
+  <input id="admin-email" placeholder="Admin Email">
+  <input id="admin-password" type="password" placeholder="Password">
+  <button onclick="adminLogin()">Login</button>
+  <p id="admin-error"></p>
+</div>
+
+</section>
+
+<script>
+function adminLogin() {
+  const email = document.getElementById("admin-email").value.trim();
+  const password = document.getElementById("admin-password").value.trim();
+
+  if (
+    email === "admin@untamedprimalgear.com" &&
+    password === "primal123"
+  ) {
+    localStorage.setItem("isAdmin", "true");
+    window.location.href = "admin.html";
+  } else {
+    document.getElementById("admin-error").innerText =
+      "Invalid admin credentials";
+  }
+}
+</script>
+
+</body>
+</html>

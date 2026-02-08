@@ -10,12 +10,13 @@ const productList = document.getElementById("admin-products");
 const categoryList = document.getElementById("admin-categories");
 const ordersDiv = document.getElementById("admin-orders");
 
+let editIndex = null;
+
 /* ===============================
-   PRODUCTS
+   PRODUCT RENDER
 =============================== */
 
 window.renderProducts = function () {
-  if (!productList) return;
 
   productList.innerHTML = "";
 
@@ -25,6 +26,7 @@ window.renderProducts = function () {
   }
 
   products.forEach((product, index) => {
+
     const div = document.createElement("div");
     div.className = "admin-product";
 
@@ -32,18 +34,26 @@ window.renderProducts = function () {
       <div>
         <strong>${product.name}</strong><br>
         Category: ${product.category || "None"}<br>
-        R${product.price}<br>
+        Price: R${product.price}<br>
         ${product.featured ? "⭐ Best Seller" : ""}
       </div>
 
-      <button onclick="deleteProduct(${index})">Delete</button>
+      <div>
+        <button onclick="editProduct(${index})">Edit</button>
+        <button onclick="deleteProduct(${index})">Delete</button>
+      </div>
     `;
 
     productList.appendChild(div);
   });
 };
 
+/* ===============================
+   ADD / UPDATE PRODUCT
+=============================== */
+
 window.addProduct = function () {
+
   const name = document.getElementById("product-name").value.trim();
   const price = document.getElementById("product-price").value;
   const image = document.getElementById("product-image").value.trim();
@@ -56,25 +66,41 @@ window.addProduct = function () {
     return;
   }
 
-  products.push({
-    id: Date.now(),
+  const productData = {
+    id: editIndex !== null ? products[editIndex].id : Date.now(),
     name,
     price: Number(price),
     image,
     description,
     category,
     featured
-  });
+  };
+
+  if (editIndex !== null) {
+    products[editIndex] = productData;
+    editIndex = null;
+  } else {
+    products.push(productData);
+  }
 
   localStorage.setItem("products", JSON.stringify(products));
 
-  document.getElementById("product-name").value = "";
-  document.getElementById("product-price").value = "";
-  document.getElementById("product-image").value = "";
-  document.getElementById("product-description").value = "";
-  document.getElementById("product-featured").checked = false;
-
+  clearProductForm();
   renderProducts();
+};
+
+window.editProduct = function (index) {
+
+  const p = products[index];
+
+  document.getElementById("product-name").value = p.name;
+  document.getElementById("product-price").value = p.price;
+  document.getElementById("product-image").value = p.image;
+  document.getElementById("product-description").value = p.description;
+  document.getElementById("product-category").value = p.category;
+  document.getElementById("product-featured").checked = p.featured;
+
+  editIndex = index;
 };
 
 window.deleteProduct = function (index) {
@@ -83,16 +109,25 @@ window.deleteProduct = function (index) {
   renderProducts();
 };
 
+function clearProductForm() {
+
+  document.getElementById("product-name").value = "";
+  document.getElementById("product-price").value = "";
+  document.getElementById("product-image").value = "";
+  document.getElementById("product-description").value = "";
+  document.getElementById("product-featured").checked = false;
+};
+
 /* ===============================
-   CATEGORIES
+   CATEGORY MANAGEMENT
 =============================== */
 
 window.renderCategories = function () {
-  if (!categoryList) return;
 
   categoryList.innerHTML = "";
 
   categories.forEach((cat, index) => {
+
     const div = document.createElement("div");
     div.className = "admin-product";
 
@@ -108,6 +143,7 @@ window.renderCategories = function () {
 };
 
 window.addCategory = function () {
+
   const input = document.getElementById("new-category");
   const value = input.value.trim();
 
@@ -121,35 +157,38 @@ window.addCategory = function () {
 };
 
 window.deleteCategory = function (index) {
+
   categories.splice(index, 1);
   localStorage.setItem("categories", JSON.stringify(categories));
+
   renderCategories();
 };
 
 function updateDropdown() {
-  const dropdown = document.getElementById("product-category");
-  if (!dropdown) return;
 
+  const dropdown = document.getElementById("product-category");
   dropdown.innerHTML = "";
 
   categories.forEach(cat => {
+
     const opt = document.createElement("option");
     opt.value = cat;
     opt.textContent = cat;
+
     dropdown.appendChild(opt);
   });
-}
+};
 
 /* ===============================
-   ORDERS
+   ORDERS PANEL
 =============================== */
 
 window.renderOrders = function () {
-  if (!ordersDiv) return;
 
   ordersDiv.innerHTML = "";
 
   orders.forEach(order => {
+
     const div = document.createElement("div");
     div.className = "admin-product";
 

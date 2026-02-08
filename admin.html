@@ -9,7 +9,7 @@
 
 <body>
 
-<!-- ================= ADMIN PROTECTION ================= -->
+<!-- ================= ADMIN ACCESS PROTECTION ================= -->
 <script>
   if (localStorage.getItem("isAdmin") !== "true") {
     window.location.href = "login.html";
@@ -18,23 +18,25 @@
 
 <!-- ================= HEADER ================= -->
 <header class="navbar">
+
   <div class="logo">ADMIN — UNTAMED PRIMAL GEAR</div>
 
   <nav>
     <a href="index.html">View Store</a>
     <a href="#" onclick="logout()">Logout</a>
   </nav>
+
 </header>
 
-<!-- ================= ADMIN DASHBOARD ================= -->
+<!-- ================= DASHBOARD ================= -->
 <section class="products">
 
-  <h2>ADMIN DASHBOARD</h2>
+  <h2>Admin Dashboard</h2>
 
   <!-- ================= CATEGORY MANAGEMENT ================= -->
   <div class="admin-box">
 
-    <h3>Categories</h3>
+    <h3>Manage Categories</h3>
 
     <input type="text" id="new-category" placeholder="New category name">
 
@@ -45,28 +47,29 @@
   </div>
 
 
-  <!-- ================= ADD PRODUCT ================= -->
+  <!-- ================= PRODUCT FORM ================= -->
   <div class="admin-box">
 
-    <label>
-      <input type="checkbox" id="product-featured">
-      Mark as Best Seller
-    </label>
+    <h3>Add / Edit Product</h3>
 
-    <h3>Add Product</h3>
+    <input type="text" id="product-name" placeholder="Product name">
 
-    <input type="text" id="product-name" placeholder="Product Name">
+    <input type="number" id="product-price" placeholder="Price">
 
-    <input type="number" id="product-price" placeholder="Price (R)">
+    <input type="text" id="product-image" placeholder="Image path">
 
-    <input type="text" id="product-image" placeholder="Image path (images/products/...)">
-
-    <textarea id="product-description" placeholder="Product description"></textarea>
+    <textarea id="product-description" placeholder="Description"></textarea>
 
     <!-- CATEGORY DROPDOWN (JS CONTROLLED) -->
     <select id="product-category"></select>
 
-    <button onclick="addProduct()">Add Product</button>
+    <!-- BEST SELLER CHECKBOX -->
+    <label style="display:block;margin:10px 0;">
+      <input type="checkbox" id="product-featured">
+      Mark as Best Seller
+    </label>
+
+    <button onclick="addProduct()">Save Product</button>
 
   </div>
 

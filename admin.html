@@ -15,14 +15,25 @@ if (localStorage.getItem("isAdmin") !== "true") {
 </script>
 
 <header class="navbar">
-  <div class="logo">ADMIN DASHBOARD</div>
-  <nav>
-    <a href="index.html">Store</a>
-    <a href="#" onclick="logout()">Logout</a>
-  </nav>
+<div class="logo">ADMIN DASHBOARD</div>
+<nav>
+<a href="index.html">Store</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
 </header>
 
 <section class="products">
+
+<h2>Category Manager</h2>
+
+<div class="admin-box">
+
+<input id="new-category" placeholder="New category name">
+<button onclick="addCategory()">Add Category</button>
+
+<div id="category-list"></div>
+
+</div>
 
 <h2>Add Product</h2>
 
@@ -33,12 +44,7 @@ if (localStorage.getItem("isAdmin") !== "true") {
 <input id="product-image" placeholder="Image path">
 <textarea id="product-description" placeholder="Description"></textarea>
 
-<select id="product-category">
-<option value="">Select Category</option>
-<option value="Apparel">Apparel</option>
-<option value="Supplements">Supplements</option>
-<option value="Gear">Gear</option>
-</select>
+<select id="product-category"></select>
 
 <button onclick="addProduct()">Add Product</button>
 

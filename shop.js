@@ -1,7 +1,17 @@
 const products = JSON.parse(localStorage.getItem("products")) || [];
+const categories = JSON.parse(localStorage.getItem("categories")) || [];
 
 const productGrid = document.getElementById("shop-product-grid");
 const filter = document.getElementById("category-filter");
+
+// populate filter dropdown
+filter.innerHTML = `<option value="all">All Categories</option>`;
+categories.forEach(cat => {
+  const opt = document.createElement("option");
+  opt.value = cat;
+  opt.textContent = cat;
+  filter.appendChild(opt);
+});
 
 function renderProducts(category = "all") {
 
@@ -32,7 +42,7 @@ function renderProducts(category = "all") {
         </div>
         <div class="product-info">
           <h3>${product.name}</h3>
-          <p>${product.category}</p>
+          <p>${product.category || ""}</p>
           <p class="price">R${product.price}</p>
           <button>Add to Cart</button>
         </div>
@@ -44,7 +54,4 @@ function renderProducts(category = "all") {
 }
 
 filter.addEventListener("change", e => {
-  renderProducts(e.target.value);
-});
-
-renderProducts();
+  renderProducts(e.

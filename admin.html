@@ -1,213 +1,61 @@
-// ===============================
-// ADMIN DASHBOARD SYSTEM
-// Products + Categories + Orders
-// ===============================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
 
-/* ===============================
-   PRODUCTS
-=============================== */
+<body>
 
-window.products = JSON.parse(localStorage.getItem("products")) || [];
-
-const productList = document.getElementById("admin-products");
-
-// Render products
-window.renderProducts = function () {
-  if (!productList) return;
-
-  productList.innerHTML = "";
-
-  if (products.length === 0) {
-    productList.innerHTML = "<p>No products added yet.</p>";
-    return;
-  }
-
-  products.forEach((product, index) => {
-    const div = document.createElement("div");
-    div.className = "admin-product";
-
-    div.innerHTML = `
-      <div>
-        <strong>${product.name}</strong><br>
-        Category: ${product.category || "None"}<br>
-        R${product.price}
-      </div>
-      <button onclick="deleteProduct(${index})">Delete</button>
-    `;
-
-    productList.appendChild(div);
-  });
-};
-
-// Add product
-window.addProduct = function () {
-  const name = document.getElementById("product-name").value.trim();
-  const price = document.getElementById("product-price").value;
-  const image = document.getElementById("product-image").value.trim();
-  const description = document.getElementById("product-description").value.trim();
-  const category = document.getElementById("product-category")?.value || "";
-
-  if (!name || !price || !image) {
-    alert("Fill all required fields");
-    return;
-  }
-
-  products.push({
-    id: Date.now(),
-    name,
-    price: Number(price),
-    image,
-    description,
-    category
-  });
-
-  localStorage.setItem("products", JSON.stringify(products));
-
-  document.getElementById("product-name").value = "";
-  document.getElementById("product-price").value = "";
-  document.getElementById("product-image").value = "";
-  document.getElementById("product-description").value = "";
-
-  renderProducts();
-};
-
-// Delete product
-window.deleteProduct = function (index) {
-  products.splice(index, 1);
-  localStorage.setItem("products", JSON.stringify(products));
-  renderProducts();
-};
-
-/* ===============================
-   CATEGORY MANAGEMENT
-=============================== */
-
-window.categories = JSON.parse(localStorage.getItem("categories")) || [];
-
-const categoryList = document.getElementById("admin-categories");
-
-// Render categories
-window.renderCategories = function () {
-  if (!categoryList) return;
-
-  categoryList.innerHTML = "";
-
-  if (categories.length === 0) {
-    categoryList.innerHTML = "<p>No categories yet.</p>";
-    updateCategoryDropdown();
-    return;
-  }
-
-  categories.forEach((cat, index) => {
-    const div = document.createElement("div");
-    div.className = "admin-product";
-
-    div.innerHTML = `
-      <span>${cat}</span>
-      <button onclick="deleteCategory(${index})">Delete</button>
-    `;
-
-    categoryList.appendChild(div);
-  });
-
-  updateCategoryDropdown();
-};
-
-// Add category
-window.addCategory = function () {
-  const input = document.getElementById("new-category");
-  if (!input) return;
-
-  const value = input.value.trim();
-
-  if (!value) {
-    alert("Enter category name");
-    return;
-  }
-
-  if (categories.includes(value)) {
-    alert("Category already exists");
-    return;
-  }
-
-  categories.push(value);
-  localStorage.setItem("categories", JSON.stringify(categories));
-
-  input.value = "";
-  renderCategories();
-};
-
-// Delete category
-window.deleteCategory = function (index) {
-  categories.splice(index, 1);
-  localStorage.setItem("categories", JSON.stringify(categories));
-  renderCategories();
-};
-
-// Update dropdown
-function updateCategoryDropdown() {
-  const dropdown = document.getElementById("product-category");
-  if (!dropdown) return;
-
-  dropdown.innerHTML = "";
-
-  categories.forEach(cat => {
-    const option = document.createElement("option");
-    option.value = cat;
-    option.textContent = cat;
-    dropdown.appendChild(option);
-  });
+<script>
+if (localStorage.getItem("isAdmin") !== "true") {
+  window.location.href = "admin-login.html";
 }
+</script>
 
-/* ===============================
-   ORDERS PANEL
-=============================== */
+<header class="navbar">
+<div class="logo">ADMIN DASHBOARD</div>
+<nav>
+<a href="index.html">Store</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
+</header>
 
-const orders = JSON.parse(localStorage.getItem("orders")) || [];
-const ordersDiv = document.getElementById("admin-orders");
+<section class="products">
 
-window.renderOrders = function () {
-  if (!ordersDiv) return;
+<h2>Category Manager</h2>
 
-  ordersDiv.innerHTML = "";
+<div class="admin-box">
 
-  if (orders.length === 0) {
-    ordersDiv.innerHTML = "<p>No orders yet.</p>";
-    return;
-  }
+<input id="new-category" placeholder="New category name">
+<button onclick="addCategory()">Add Category</button>
 
-  orders.forEach(order => {
-    const div = document.createElement("div");
-    div.className = "admin-product";
+<div id="category-list"></div>
 
-    div.innerHTML = `
-      <div>
-        <strong>Order #${order.id}</strong><br>
-        ${order.customer.name}<br>
-        ${order.customer.email}<br>
-        Total: R${order.total}<br>
-        Status: ${order.status}<br>
-        ${order.date}
-      </div>
-    `;
+</div>
 
-    ordersDiv.appendChild(div);
-  });
-};
+<h2>Add Product</h2>
 
-/* ===============================
-   LOGOUT
-=============================== */
+<div class="admin-box">
 
-window.logout = function () {
-  localStorage.removeItem("isAdmin");
-  window.location.href = "login.html";
-};
+<input id="product-name" placeholder="Product Name">
+<input id="product-price" type="number" placeholder="Price">
+<input id="product-image" placeholder="Image path">
+<textarea id="product-description" placeholder="Description"></textarea>
 
-/* ===============================
-   INIT RENDER
-=============================== */
+<select id="product-category"></select>
 
-renderProducts();
-renderCategories();
-renderOrders();
+<button onclick="addProduct()">Add Product</button>
+
+</div>
+
+<h2>Products</h2>
+<div id="admin-products"></div>
+
+</section>
+
+<script src="admin.js"></script>
+
+</body>
+</html>

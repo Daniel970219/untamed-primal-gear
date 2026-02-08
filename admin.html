@@ -1,60 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Admin Dashboard</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | Untamed Primal Gear</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- ================= ADMIN PROTECTION ================= -->
 <script>
-if (localStorage.getItem("isAdmin") !== "true") {
-  window.location.href = "admin-login.html";
-}
+  if (localStorage.getItem("isAdmin") !== "true") {
+    window.location.href = "login.html";
+  }
 </script>
 
+<!-- ================= HEADER ================= -->
 <header class="navbar">
-<div class="logo">ADMIN DASHBOARD</div>
-<nav>
-<a href="index.html">Store</a>
-<a href="#" onclick="logout()">Logout</a>
-</nav>
+  <div class="logo">ADMIN — UNTAMED PRIMAL GEAR</div>
+
+  <nav>
+    <a href="index.html">View Store</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </nav>
 </header>
 
+<!-- ================= ADMIN DASHBOARD ================= -->
 <section class="products">
 
-<h2>Category Manager</h2>
+  <h2>ADMIN DASHBOARD</h2>
 
-<div class="admin-box">
+  <!-- ================= CATEGORY MANAGEMENT ================= -->
+  <div class="admin-box">
 
-<input id="new-category" placeholder="New category name">
-<button onclick="addCategory()">Add Category</button>
+    <h3>Categories</h3>
 
-<div id="category-list"></div>
+    <input type="text" id="new-category" placeholder="New category name">
 
-</div>
+    <button onclick="addCategory()">Add Category</button>
 
-<h2>Add Product</h2>
+    <div id="admin-categories"></div>
 
-<div class="admin-box">
+  </div>
 
-<input id="product-name" placeholder="Product Name">
-<input id="product-price" type="number" placeholder="Price">
-<input id="product-image" placeholder="Image path">
-<textarea id="product-description" placeholder="Description"></textarea>
 
-<select id="product-category"></select>
+  <!-- ================= ADD PRODUCT ================= -->
+  <div class="admin-box">
 
-<button onclick="addProduct()">Add Product</button>
+    <h3>Add Product</h3>
 
-</div>
+    <input type="text" id="product-name" placeholder="Product Name">
 
-<h2>Products</h2>
-<div id="admin-products"></div>
+    <input type="number" id="product-price" placeholder="Price (R)">
+
+    <input type="text" id="product-image" placeholder="Image path (images/products/...)">
+
+    <textarea id="product-description" placeholder="Product description"></textarea>
+
+    <!-- CATEGORY DROPDOWN (JS CONTROLLED) -->
+    <select id="product-category"></select>
+
+    <button onclick="addProduct()">Add Product</button>
+
+  </div>
+
+
+  <!-- ================= PRODUCT LIST ================= -->
+  <div class="admin-box">
+
+    <h3>Products</h3>
+
+    <div id="admin-products"></div>
+
+  </div>
+
+
+  <!-- ================= ORDERS PANEL ================= -->
+  <div class="admin-box">
+
+    <h3>Orders</h3>
+
+    <div id="admin-orders"></div>
+
+  </div>
 
 </section>
 
+<!-- ================= SCRIPT ================= -->
 <script src="admin.js"></script>
 
 </body>
